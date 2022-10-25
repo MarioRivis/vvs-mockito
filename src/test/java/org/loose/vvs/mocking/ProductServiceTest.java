@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
-    private static List<Product> someProducts = Arrays.asList(
+    private static final List<Product> someProducts = Arrays.asList(
             Product.builder().id(1).price(100).build(),
             Product.builder().id(2).price(300).build()
     );
@@ -42,6 +42,13 @@ class ProductServiceTest {
                 return new ArrayList<>();
             }
         });
+
+        assertEquals(0, productService.computeAveragePricesOfPhones());
+    }
+
+    @Test
+    void testAveragePriceForPhonesWithNoProductsWithMock(@Mock ProductProvider productProvider) {
+        productService.setProductProvider(productProvider);
 
         assertEquals(0, productService.computeAveragePricesOfPhones());
     }
